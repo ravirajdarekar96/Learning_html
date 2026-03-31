@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .calculator {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            height: 40px;
+            font-size: 20px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            width: 60px;
+            height: 40px;
+            margin: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .operator {
+            background-color: #ffcc00;
+        }
+
+        .equal {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .clear {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Simple JavaScript Calculator</h2>
+
+    <div class="calculator">
+        <!-- Display -->
+        <input type="text" id="display" readonly>
+
+        <br>
+
+        <!-- Number Buttons -->
+        <button onclick="addValue('7')">7</button>
+        <button onclick="addValue('8')">8</button>
+        <button onclick="addValue('9')">9</button>
+        <button class="operator" onclick="addValue('/')">/</button>
+
+        <br>
+
+        <button onclick="addValue('4')">4</button>
+        <button onclick="addValue('5')">5</button>
+        <button onclick="addValue('6')">6</button>
+        <button class="operator" onclick="addValue('*')">*</button>
+
+        <br>
+
+        <button onclick="addValue('1')">1</button>
+        <button onclick="addValue('2')">2</button>
+        <button onclick="addValue('3')">3</button>
+        <button class="operator" onclick="addValue('-')">-</button>
+
+        <br>
+
+        <button onclick="addValue('0')">0</button>
+        <button onclick="square()">x²</button>
+        <button class="equal" onclick="calculate()">=</button>
+        <button class="operator" onclick="addValue('+')">+</button>
+
+        <br>
+
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button onclick="takeInput()">Prompt Input</button>
+    </div>
+
+    <script>
+        // Add value to display
+        function addValue(value) {
+            document.getElementById("display").value += value;
+        }
+
+        // Clear display
+        function clearDisplay() {
+            document.getElementById("display").value = "";
+        }
+
+        // Calculate result
+        function calculate() {
+            let expression = document.getElementById("display").value;
+
+            // Validation
+            if (expression === "") {
+                alert("Please enter a value!");
+                return;
+            }
+
+            try {
+                let result = eval(expression);
+
+                // Check division by zero
+                if (result === Infinity) {
+                    alert("Cannot divide by zero!");
+                    clearDisplay();
+                } else {
+                    document.getElementById("display").value = result;
+                }
+
+            } catch (error) {
+                alert("Invalid Expression!");
+                clearDisplay();
+            }
+        }
+
+        // Square function
+        function square() {
+            let value = document.getElementById("display").value;
+
+            if (value === "" || isNaN(value)) {
+                alert("Enter a valid number to square!");
+                return;
+            }
+
+            document.getElementById("display").value = value * value;
+        }
+
+        // Prompt input
+        function takeInput() {
+            let userInput = prompt("Enter a number:");
+
+            if (userInput === null) {
+                alert("No input provided!");
+                return;
+            }
+
+            if (isNaN(userInput) || userInput.trim() === "") {
+                alert("Invalid input! Please enter a number.");
+            } else {
+                document.getElementById("display").value = userInput;
+            }
+        }
+    </script>
+
+</body>
+</html>
